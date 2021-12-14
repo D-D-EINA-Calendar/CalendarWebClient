@@ -1,4 +1,4 @@
-import { Space } from "antd";
+import { Space, Tooltip } from "antd";
 import Badge from "antd/lib/badge";
 import Button from "antd/lib/button";
 import Row from "antd/lib/grid/row";
@@ -50,15 +50,21 @@ export const SubjectBadget = ({ setDraggedEvent, subjectB, key }: Props) => {
 
 const getTypeAndHours = (color: string, { hour, min }: Time, name: string) => {
   return (
-    <Tag color={color}>
-      <Space
-        direction="vertical"
-        size={1}
-        style={{ paddingTop: 5, paddingBottom: 5 }}
-      >
-        <Text style={{ color: color }}>{name}</Text>
-        <Badge showZero count={`${hour}:${min}`} />
-      </Space>
-    </Tag>
+    <Tooltip
+      title="Horas restantes por tipo"
+      placement="left"
+      mouseEnterDelay={1}
+    >
+      <Tag color={color}>
+        <Space
+          direction="vertical"
+          size={1}
+          style={{ paddingTop: 5, paddingBottom: 5 }}
+        >
+          <Text style={{ color: color }}>{name}</Text>
+          <Badge showZero count={`${hour}:${min}`} />
+        </Space>
+      </Tag>
+    </Tooltip>
   );
 };
