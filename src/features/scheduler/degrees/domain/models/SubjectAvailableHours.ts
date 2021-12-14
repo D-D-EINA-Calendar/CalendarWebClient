@@ -1,4 +1,4 @@
-import { SubjectKind } from "../../../entries/domain/models/Entry";
+import { SubjectKind, Time } from "../../../entries/domain/models/Entry";
 
 type SubjectAvailableHours = {
   kind: SubjectKind;
@@ -8,5 +8,17 @@ type SubjectAvailableHours = {
     total: number;
   };
 };
+
+/// TODO: @Íñigo: You have to put it like this (or smth like this)
+
+// type KindTime = {
+//   remaining: Time;
+//   total: Time;
+// };
+
+// type SubjectAvailableHours = {
+//   kindMap: Map<SubjectKind, KindTime>
+//   subject: string;
+// };
 
 export type { SubjectAvailableHours };

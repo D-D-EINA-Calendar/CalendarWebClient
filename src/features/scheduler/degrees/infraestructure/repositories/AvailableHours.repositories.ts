@@ -13,14 +13,15 @@ export const degreeAvailableHoursRepo = {
     }
     // Parse to domain models, where bussines logic can understand the data
     try {
+      /// FIXME: @Íñigo: parse to new [SubjectAvailableHours]
       const value = res.value.map(
         (subjectAvailableHoursDto): SubjectAvailableHours => {
           return {
             kind: subjectAvailableHoursDto.Subject.Kind,
             subject: subjectAvailableHoursDto.Subject.Name,
             hours: {
-              remaining: subjectAvailableHoursDto.RemainingHours,//TODO do min also
-              total: subjectAvailableHoursDto.MaxHours,//TODO do min also
+              remaining: subjectAvailableHoursDto.RemainingHours, //TODO do min also
+              total: subjectAvailableHoursDto.MaxHours, //TODO do min also
             },
           };
         }

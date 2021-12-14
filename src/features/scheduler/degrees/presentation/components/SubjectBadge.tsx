@@ -1,9 +1,10 @@
+import { Space } from "antd";
 import Badge from "antd/lib/badge";
 import Button from "antd/lib/button";
 import Row from "antd/lib/grid/row";
 import Tag from "antd/lib/tag";
 import Text from "antd/lib/typography/Text";
-import { SubjectKind } from "../../../entries/domain/models/Entry";
+import { Time } from "../../../entries/domain/models/Entry";
 import { SubjectAvailableHours } from "../../domain/models/SubjectAvailableHours";
 import { degreeAvailableHoursService } from "../../domain/services/AvailableHours.service";
 
@@ -26,33 +27,38 @@ export const SubjectBadget = ({ setDraggedEvent, subjectB, key }: Props) => {
         })
       }
     >
-      <Badge showZero count={hours.remaining}>
-        <Button
-          type="primary"
-          style={{
-            height: "auto",
-            backgroundColor: degreeAvailableHoursService.getSubjectColor(kind),
-            padding: 5,
-            width: 190,
-            maxHeight: 150,
-          }}
-        >
-          <Text style={{ whiteSpace: "normal" }}>{subject}</Text>
-          <br />
-          <Row justify="end">{getSubjectTag(kind)}</Row>
-        </Button>
-      </Badge>
+      <Button
+        type="primary"
+        style={{
+          height: "auto",
+          backgroundColor: degreeAvailableHoursService.getSubjectColor(kind),
+          padding: 4,
+          width: "auto",
+        }}
+      >
+        <Text style={{ whiteSpace: "normal" }}>{subject}</Text>
+        <Row justify="space-between">
+          {/* FIXME: @Iñigo: you have to change the [{hour, min}] when [SubjectAvailableHours] is changed] */}
+          {getTypeAndHours("blue", { hour: 20, min: 0 }, "Teo.")}
+          {getTypeAndHours("magenta", { hour: 20, min: 0 }, "Prac.")}
+          {getTypeAndHours("green", { hour: 20, min: 0 }, "Prob.")}
+        </Row>
+      </Button>
     </div>
   );
 };
 
-const getSubjectTag = (kind: SubjectKind) => {
-  switch (kind) {
-    case SubjectKind.theory:
-      return <Tag color="blue">Teo.</Tag>;
-    case SubjectKind.practices:
-      return <Tag color="magenta">Prac.</Tag>;
-    case SubjectKind.problems:
-      return <Tag color="green">Prob.</Tag>;
-  }
+const getTypeAndHours = (color: string, { hour, min }: Time, name: string) => {
+  return (
+    <Tag color={color}>
+      <Space
+        direction="vertical"
+        size={1}
+        style={{ paddingTop: 5, paddingBottom: 5 }}
+      >
+        <Text style={{ color: color }}>{name}</Text>
+        <Badge showZero count={`${hour}:${min}`} />
+      </Space>
+    </Tag>
+  );
 };

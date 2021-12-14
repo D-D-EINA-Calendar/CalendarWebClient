@@ -7,7 +7,7 @@ import { DegreePropertiesContextWrapper } from "../../context/DegreePropertiesCo
 import { SelectedDegreeContextWrapper } from "../../context/DegreeSelectedContext";
 import LeftDrawer from "../../../features/scheduler/degrees/presentation/components/LeftDrawer";
 import SchedulerCard from "../../../features/scheduler/entries/presentation/components/SchedulerCard";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import { SiderTheme } from "antd/lib/layout/Sider";
 import { ButtonToggleND } from "../components/notes-drawer/ButtonToggleND";
 import Text from "antd/lib/typography/Text";
@@ -25,31 +25,13 @@ export const SchedulerPage = () => {
     leftDrawerContext.setVisibility(!visible);
   };
 
-  const siderProps = {
-    theme: "light" as SiderTheme,
-    collapsed: visible,
-    hidden: !isDrawerClosed,
-    collapsedWidth: 0,
-    width: 230,
-    id: "leftSider",
-    trigger: null,
-  };
-
   return (
     <DegreeSubjectsContextWrapper>
       <DegreePropertiesContextWrapper>
         <SelectedDegreeContextWrapper>
           <Layout style={{ height: "100%", backgroundColor: "#E1E2E3" }}>
             {isDrawerClosed && (
-              <Sider
-                {...siderProps}
-                style={{
-                  height: "100%",
-                  borderRight: "2px solid #1890FF",
-                  overflowY: "scroll",
-                  backgroundColor: "#E6E7EA",
-                }}
-              >
+              <Sider collapsed={visible} hidden={!isDrawerClosed}>
                 <LeftDrawer setDraggedEvent={setDraggedEvent} />
               </Sider>
             )}
@@ -88,4 +70,20 @@ export const SchedulerPage = () => {
       </DegreePropertiesContextWrapper>
     </DegreeSubjectsContextWrapper>
   );
+};
+
+Sider.defaultProps = {
+  theme: "light" as SiderTheme,
+  style: {
+    height: "100%",
+    borderRight: "2px solid #1890FF",
+    overflowY: "scroll",
+    backgroundColor: "#E6E7EA",
+    display: "flex",
+    justifyContent: "center",
+  } as CSSProperties,
+  collapsedWidth: 0,
+  width: 275,
+  id: "leftSider",
+  trigger: null,
 };

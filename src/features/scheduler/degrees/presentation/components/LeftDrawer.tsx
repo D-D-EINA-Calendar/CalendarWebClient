@@ -12,7 +12,7 @@ type Props = {
 
 const LeftDrawer = ({ setDraggedEvent }: Props) => {
   const subjectListStore = useContext(DegreeSubjectsContext).store;
-  const degreeName = degreePropertiesService.getSelectedDegree().degree;
+  const degreeName = degreePropertiesService.getSelectedDegree().degree ?? "";
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (subjectListStore.length === 0) setLoading(degreeName != null);
@@ -31,11 +31,11 @@ const LeftDrawer = ({ setDraggedEvent }: Props) => {
     <Space
       direction="vertical"
       style={{
-        padding: 15,
+        padding: 10,
       }}
     >
-      <Title level={4} ellipsis={{ rows: 2 }}>
-        {degreeName ?? ""}
+      <Title level={4} ellipsis={{ rows: 2 }} style={{ textAlign: "center" }}>
+        {degreeName}
       </Title>
       <Spin size="large" spinning={loading}>
         <Space size={20} direction="vertical">
