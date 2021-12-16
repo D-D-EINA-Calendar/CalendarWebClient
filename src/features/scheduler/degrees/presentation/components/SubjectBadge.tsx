@@ -27,35 +27,34 @@ export const SubjectBadget = ({ setDraggedEvent, subjectB, key }: Props) => {
         })
       }
     >
-      <Button
-        type="primary"
+      <Space
         style={{
           height: "auto",
-          backgroundColor: degreeAvailableHoursService.getSubjectColor(kind),
-          padding: 4,
+          backgroundColor: "#e1e1e1",
+          padding: 5,
           width: "auto",
+          border: "#878787 2px solid",
+          borderRadius: 5,
         }}
+        direction="vertical"
+        align="center"
       >
         <Text style={{ whiteSpace: "normal" }}>{subject}</Text>
-        <Row justify="space-between">
+        <Row>
           {/* FIXME: @Iñigo: you have to change the [{hour, min}] when [SubjectAvailableHours] is changed] */}
           {getTypeAndHours("blue", { hour: 20, min: 0 }, "Teo.")}
           {getTypeAndHours("magenta", { hour: 20, min: 0 }, "Prac.")}
           {getTypeAndHours("green", { hour: 20, min: 0 }, "Prob.")}
         </Row>
-      </Button>
+      </Space>
     </div>
   );
 };
 
 const getTypeAndHours = (color: string, { hour, min }: Time, name: string) => {
   return (
-    <Tooltip
-      title="Horas restantes por tipo"
-      placement="left"
-      mouseEnterDelay={1}
-    >
-      <Tag color={color}>
+    <Tooltip title="Horas restantes" placement="left" mouseEnterDelay={1}>
+      <Tag color={color} style={{ border: "2px solid" }}>
         <Space
           direction="vertical"
           size={1}
