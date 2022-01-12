@@ -13,7 +13,25 @@ type Props = {
 };
 
 export const SubjectBadget = ({ setDraggedEvent, subjectB, key }: Props) => {
-  const { subject, kind, hours } = subjectB;
+  const { name, properties } = subjectB;
+
+  const getHours = (kind: SubjectKind):number=>{
+    const res = properties.get(kind)?.remaining.hour
+     
+    if (!res)
+      return 0
+    return res
+    
+    }
+
+    const getMins = (kind: SubjectKind):number=>{
+      const res = properties.get(kind)?.remaining.min
+       
+      if (!res)
+        return 0
+      return res
+      
+      }
 
   const getTypeAndHours = (
     color: string,
@@ -28,7 +46,7 @@ export const SubjectBadget = ({ setDraggedEvent, subjectB, key }: Props) => {
         style={{ cursor: "grab" }}
         onDragStart={() =>
           setDraggedEvent({
-            title: subject,
+            title: name,
             kind,
           })
         }
@@ -62,25 +80,25 @@ export const SubjectBadget = ({ setDraggedEvent, subjectB, key }: Props) => {
       direction="vertical"
       align="center"
     >
-      <Text style={{ whiteSpace: "normal" }}>{subject}</Text>
+      <Text style={{ whiteSpace: "normal" }}>{name}</Text>
       <Row>
         {/* FIXME: @Iñigo: you have to change the [{hour, min}] when [SubjectAvailableHours] is changed] */}
         {getTypeAndHours(
           "blue",
           SubjectKind.theory,
-          { hour: 20, min: 0 },
+          { hour: getHours(SubjectKind.theory), min: getMins(SubjectKind.theory) },
           "Teo."
         )}
         {getTypeAndHours(
           "magenta",
           SubjectKind.practices,
-          { hour: 20, min: 0 },
+          { hour:getHours(SubjectKind.practices), min: getMins(SubjectKind.practices) },
           "Prac."
         )}
         {getTypeAndHours(
           "green",
           SubjectKind.problems,
-          { hour: 20, min: 0 },
+          { hour: getHours(SubjectKind.problems), min: getMins(SubjectKind.problems) },
           "Prob."
         )}
       </Row>

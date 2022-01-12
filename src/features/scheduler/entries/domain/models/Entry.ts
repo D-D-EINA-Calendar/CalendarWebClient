@@ -1,4 +1,5 @@
 enum SubjectKind {
+  error,
   theory,
   practices,
   problems,

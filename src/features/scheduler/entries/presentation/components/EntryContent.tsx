@@ -69,6 +69,8 @@ const EntryContent = ({ event }: Props) => {
     case SubjectKind.seminar:
       // Seminar hours
       return <Text style={{ color: "white" }}>Seminario</Text>;
+      case SubjectKind.error:
+        return <Text style={{ color: "pink" }}>Seminario</Text>;
   }
 };
 
