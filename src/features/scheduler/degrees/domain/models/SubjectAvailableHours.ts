@@ -1,24 +1,19 @@
 import { SubjectKind, Time } from "../../../entries/domain/models/Entry";
 
-type SubjectAvailableHours = {
-  kind: SubjectKind;
-  subject: string;
-  hours: {
-    remaining: number;
-    total: number;
-  };
+
+
+type SubjectTime = {
+   remaining: Time;
+   total: Time;
 };
 
-/// TODO: @Íñigo: You have to put it like this (or smth like this)
 
-// type KindTime = {
-//   remaining: Time;
-//   total: Time;
-// };
+type SubjectAvailableHours = {
+  name : String
+  properties : SubjectAvailableHoursProperties
 
-// type SubjectAvailableHours = {
-//   kindMap: Map<SubjectKind, KindTime>
-//   subject: string;
-// };
+} 
+type SubjectAvailableHoursProperties = Map<SubjectKind, SubjectTime>
 
-export type { SubjectAvailableHours };
+
+export type { SubjectAvailableHours,SubjectAvailableHoursProperties,SubjectTime };
